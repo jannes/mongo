@@ -828,7 +828,7 @@ void setUpCatalog(ServiceContext* serviceContext) {
 auto makeReplicationExecutor(ServiceContext* serviceContext) {
     ThreadPool::Options tpOptions;
     tpOptions.poolName = "replexec";
-    tpOptions.maxThreads = 50;
+    tpOptions.maxThreads = std::stoul(getenv("MONGO_REPL_MAX_THREADS"));
     tpOptions.onCreateThread = [](const std::string& threadName) {
         Client::initThread(threadName.c_str());
     };
